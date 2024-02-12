@@ -1,9 +1,9 @@
 FROM rabits/qt:5.14-desktop
 
-LABEL IMAGE_NAME="jpvantassel/geopsy-docker:3.4.2-qt5.14"
+LABEL IMAGE_NAME="jpvantassel/geopsy-docker:3.5.2-qt5.14"
 LABEL MAINTAINER="Joseph P. Vantassel <joseph.p.vantassel@gmail.com>"
 
-COPY geopsypack-src-3.4.2.tar.gz /home/user/
+COPY geopsypack-src-3.5.2.tar.gz /home/user/
 
 RUN sudo apt update \
  && sudo apt upgrade --yes \
@@ -18,14 +18,14 @@ RUN sudo apt update \
 
 RUN /bin/bash -c \
     cd /home/user \
- && tar -xf geopsypack-src-3.4.2.tar.gz \
- && rm geopsypack-src-3.4.2.tar.gz \
+ && tar -xf geopsypack-src-3.5.2.tar.gz \
+ && rm geopsypack-src-3.5.2.tar.gz \
  && mkdir geopsy \
- && cd geopsypack-src-3.4.2 \
+ && cd geopsypack-src-3.5.2 \
  && ./configure -prefix /home/user/geopsy/ -march native --accept-license \
  && make \
  && sudo make install \
  && cd /home/user/ \
- && rm -rf geopsypack-src-3.4.2
+ && rm -rf geopsypack-src-3.5.2
 
 ENV PATH=/home/user/geopsy/bin/:$PATH
