@@ -16,3 +16,9 @@ The repository currently hosts instructions (i.e., Dockerfiles) for:
 
 __The pre-build images can be found on
 [dockerhub](https://hub.docker.com/repository/docker/jpvantassel/geopsy-docker)__.
+
+## Run
+
+```
+docker build -f Dockerfile -t geopsy:1.0.0 .
+```
