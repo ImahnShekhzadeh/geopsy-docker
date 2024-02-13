@@ -1,30 +1,39 @@
-FROM rabits/qt:5.15-desktop
+FROM ubuntu:jammy
 
 LABEL IMAGE_NAME="jpvantassel/geopsy-docker:3.5.2-qt5.14"
 LABEL MAINTAINER="Joseph P. Vantassel <joseph.p.vantassel@gmail.com>"
 
-COPY geopsypack-src-3.5.2.tar.gz /home/user/
+# Set the working directory
+WORKDIR /app
 
-RUN sudo apt update \
- && sudo apt upgrade --yes \
- && sudo apt install --yes --quiet --no-install-recommends \
+COPY geopsypack-src-3.5.2.tar.gz /app/
+
+RUN apt-get update \
+ && apt-get upgrade --yes \
+ && apt-get install --yes --quiet --no-install-recommends \
+    build-essential \ 
+    python3.11-dev \
+    qtbase5-dev \
+    qttools5-dev-tools \
+    qtdeclarative5-dev \
+    libqt5svg5-dev \
     g++ \
     gfortran \
     libfftw3-dev \
     liblapack-dev \
     zlib1g-dev \
     libopenblas-dev \
- && sudo apt clean
+ && apt-get clean
 
 RUN /bin/bash -c \
-    cd /home/user \
+    cd /app/ \
  && tar -xf geopsypack-src-3.5.2.tar.gz \
  && rm geopsypack-src-3.5.2.tar.gz \
  && mkdir geopsy \
  && cd geopsypack-src-3.5.2 \
  && ./configure -prefix /home/user/geopsy/ -march native --accept-license \
  && make \
- && sudo make install \
+ && make install \
  && cd /home/user/ \
  && rm -rf geopsypack-src-3.5.2
 
