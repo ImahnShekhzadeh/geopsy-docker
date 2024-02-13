@@ -31,7 +31,6 @@ RUN /bin/bash -c \
  && ./configure -prefix /home/user/geopsy/ -march native --accept-license \
  && make \
  && make install \
- && cd /home/user/ \
  && rm -rf geopsypack-src-3.5.2
 
 ENV PATH=/home/user/geopsy/bin/:$PATH
