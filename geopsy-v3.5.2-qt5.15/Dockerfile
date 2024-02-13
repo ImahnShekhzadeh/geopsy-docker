@@ -1,8 +1,5 @@
 FROM ubuntu:jammy
 
-LABEL IMAGE_NAME="jpvantassel/geopsy-docker:3.5.2-qt5.14"
-LABEL MAINTAINER="Joseph P. Vantassel <joseph.p.vantassel@gmail.com>"
-
 # Set the working directory
 WORKDIR /app
 
