@@ -55,3 +55,11 @@ RUN /bin/bash -c \
  && rm -rf geopsypack-src-3.5.2
 
 ENV PATH=/home/user/geopsy/bin/:$PATH
+
+# Follow these instructions to access the Python interface:
+# https://www.geopsy.org/wiki/index.php/Python_interface
+RUN cd /home/user/geopsy && mkdir python && cp lib/libGeopsyPyCoreWave.so \
+python/GeopsyPyCoreWave.so && cp lib/libGeopsyPySciFigs.so \
+python/GeopsyPySciFigs.so
+
+ENV PYTHONPATH=/home/user/geopsy/python:$PYTHONPATH
