@@ -56,10 +56,11 @@ RUN /bin/bash -c \
 
 ENV PATH=/home/user/geopsy/bin/:$PATH
 
-# Follow these instructions to access the Python interface:
-# https://www.geopsy.org/wiki/index.php/Python_interface
-RUN cd /home/user/geopsy && mkdir python && cp lib/libGeopsyPyCoreWave.so \
-python/GeopsyPyCoreWave.so && cp lib/libGeopsyPySciFigs.so \
-python/GeopsyPySciFigs.so
+# Copy shell script that will be executed when the container starts
+COPY run_scripts.sh .
 
-ENV PYTHONPATH=/home/user/geopsy/python:$PYTHONPATH
+# Ensure `run_scripts.sh` is executable
+RUN chmod +x ./run_scripts.sh
+
+# Execute `run_scripts.sh` as the entrypoint
+ENTRYPOINT ["./run_scripts.sh"]
