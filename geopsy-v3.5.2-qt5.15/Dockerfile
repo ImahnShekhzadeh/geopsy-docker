@@ -49,18 +49,31 @@ RUN /bin/bash -c \
  && rm geopsypack-src-3.5.2.tar.gz \
  && mkdir geopsy \
  && cd geopsypack-src-3.5.2 \
- && ./configure -prefix /home/user/geopsy/ -march native -I /opt/conda/lib/python3.10 --accept-license \
- && make \
- && make install \
+ && ./configure -prefix /home/user/geopsy/ -march native -I /opt/conda/include/python3.10 -I /opt/conda/lib/python3.10/site-packages/numpy/core/include --accept-license \
+ && make -j 8 -C QGpCoreTools install \
+ && make -j 8 -C QGpCoreMath install \
+ && make -j 8 -C QGpGuiTools install \
+ && make -j 8 -C SciFigs install \
+ && make -j 8 -C QGpCoreWave install \
+ && make -j 8 -C GeopsyPyCoreWave install \
+ && make -j 8 -C GeopsyPySciFigs install \
  && rm -rf geopsypack-src-3.5.2
 
 ENV PATH=/home/user/geopsy/bin/:$PATH
 
+# Follow these instructions to access the Python interface:
+# https://www.geopsy.org/wiki/index.php/Python_interface
+RUN cd /home/user/geopsy && mkdir python && cp lib/libGeopsyPyCoreWave.so \
+python/GeopsyPyCoreWave.so && cp lib/libGeopsyPySciFigs.so \
+python/GeopsyPySciFigs.so
+
+ENV PYTHONPATH=/home/user/geopsy/python:$PYTHONPATH
+
 # Copy shell script that will be executed when the container starts
-COPY run_scripts.sh .
+# COPY run_scripts.sh .
 
 # Ensure `run_scripts.sh` is executable
-RUN chmod +x ./run_scripts.sh
+# RUN chmod +x ./run_scripts.sh
 
 # Execute `run_scripts.sh` as the entrypoint
-ENTRYPOINT ["./run_scripts.sh"]
+# ENTRYPOINT ["./run_scripts.sh"]

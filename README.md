@@ -21,4 +21,6 @@ __The pre-build images can be found on
 
 ```
 docker build -f Dockerfile -t geopsy:1.0.0 .
+xhost +local:docker
+docker run -it -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v $(pwd)/:/app/files geopsy:1.0.0
 ```
