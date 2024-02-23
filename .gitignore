@@ -3,3 +3,6 @@
 # output files related to accessing the geopsy fortran interface
 fort-output.txt
 testfo
+
+# log files
+*.log
