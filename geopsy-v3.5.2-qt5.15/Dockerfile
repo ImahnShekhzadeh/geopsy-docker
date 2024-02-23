@@ -25,6 +25,8 @@ pip install numpy
 # Set the working directory
 WORKDIR /app
 
+# Extract the source code of Geopsy and copy it to the working directory
+RUN curl -kLo geopsypack-src-3.5.2.tar.gz https://www.geopsy.org/dl/geopsypack-src-3.5.2.tar.gz
 COPY geopsypack-src-3.5.2.tar.gz /app/
 
 RUN apt-get update \
